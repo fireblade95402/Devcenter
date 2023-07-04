@@ -1,11 +1,14 @@
-name: MSDO windows-latest
+name: MSDO (CI)
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
 
 jobs:
-  sample:
+  build:
     name: Microsoft Security DevOps Analysis
 
     # MSDO runs on windows-latest.
