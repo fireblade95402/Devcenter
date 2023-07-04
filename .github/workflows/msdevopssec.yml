@@ -1,28 +1,29 @@
-name: MSDO (CI)
+name: MSDO Sample Workflow
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
-  workflow_dispatch:
+permissions:
+  security-events: write
 
 jobs:
-  build:
-    name: Microsoft Security DevOps Analysis
+  sample:
+    name: MSDO on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
-    # MSDO runs on windows-latest.
-    # ubuntu-latest and macos-latest supporting coming soon
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
 
     steps:
-
+      
       # Checkout your code repository to scan
     - uses: actions/checkout@v3
 
       # Run analyzers
     - name: Run Microsoft Security DevOps Analysis
-      uses: microsoft/security-devops-action@preview
+      uses: microsoft/security-devops-action@v1
       id: msdo
 
       # Upload alerts to the Security tab
